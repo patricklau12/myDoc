@@ -1,9 +1,13 @@
 It may works for Ubuntu 22.04 only
 # 1. Install CUDA 
-Read 00
+CUDA should be already installed if the Orin was flashed with the SDK manager,
+if not, install CUDA by following tutorial 00
 
 # 2. Install OpenBLAS
-Read 01
+```ruby
+sudo apt update
+sudo apt install libopenblas-dev
+```
 
 # 3. Install gfortran
 ```ruby
@@ -26,16 +30,14 @@ vim ~/.bashrc
 ```
 Add following lines in the .bashrc
 ```ruby
-export PATH=/usr/local/cuda/bin/:$PATH
 export CUDADIR=/usr/local/cuda
-export OPENBLASDIR=/usr/lib/x86_64-linux-gnu/openblas-pthread
+export OPENBLASDIR=/usr/
 export LD_LIBRARY_PATH=/usr/local/magma/lib
 ```
 Source the .bashrc
 ```ruby
 source ~/.bashrc
 ```
-
 ## Make parameters
 go into make.inc-examples and copy make.inc.openblas into the parent directory and rename it make.inc
 
@@ -45,7 +47,7 @@ mv make.inc-examples/make.inc.openblas ./make.inc
 
 modify the make.inc to compile only for ampere architecture by modifying the GPU_TARGET variable on line 57 in make.inc to only be Ampere
 
-for single precision, copy replace the original makefile with Makefile_single then
+for single precision, replace the original makefile with Makefile_single file from this repository, then
 ```ruby
 make -j12
 ```
