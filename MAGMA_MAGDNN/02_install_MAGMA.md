@@ -35,6 +35,8 @@ Source the .bashrc
 ```ruby
 source ~/.bashrc
 ```
+
+for single precision, copy replace the original makefile with Makefile_single 
 ```ruby
 make -j 12
 ```
