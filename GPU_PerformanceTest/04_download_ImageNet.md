@@ -1,3 +1,5 @@
+# Prepare dataset
+
 ## Create ImageNet Account
 
 ## Download ImageNet
@@ -17,9 +19,9 @@ ILSVRC2012_img_train.tar
 ILSVRC2012_img_val.tar
 ```
 
-#### Run
+#### Run the Docker image
 ```ruby
-nvidia-docker run -it --rm --shm-size=1g --ipc=host --ulimit memlock=-1 --ulimit stack=67108864 \
+sudo nvidia-docker run -it --rm --shm-size=1g --ipc=host --ulimit memlock=-1 --ulimit stack=67108864 \
 -v ~/Desktop/imagenet12:/imagenet \
 -w /workspace/nvidia-examples/build_imagenet_data/ \
 nvcr.io/nvidia/tensorflow:23.07-tf2-py3
