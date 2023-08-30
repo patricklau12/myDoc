@@ -49,7 +49,7 @@ modify the make.inc to compile only for ampere architecture by modifying the GPU
 
 for single precision, replace the original makefile with Makefile_single file from this repository, then
 ```ruby
-make dense -j12
+make dense -j8
 ```
 ```ruby
 sudo -E make install prefix=/usr/local/magma
