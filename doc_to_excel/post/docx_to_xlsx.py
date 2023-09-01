@@ -26,12 +26,15 @@ def transform_table_to_scale(df):
                     try:
                         scale_value = int(col.split()[0])
                     except IndexError:
-                        # Handle the case where the column name doesn't contain any spaces
-                        scale_value = col
+                        scale_value = col  # Use the full column name if it doesn't contain any spaces
                     transformed_df = transformed_df.append({"Question": row.name, "Scale": scale_value}, ignore_index=True)
                     break
     return transformed_df
 
+def get_response_between_markers(text, start_marker, end_marker):
+    start = text.find(start_marker) + len(start_marker)
+    end = text.find(end_marker)
+    return text[start:end].strip()
 
 # Initialize an empty DataFrame to store the final output
 final_df = pd.DataFrame()
@@ -55,18 +58,22 @@ for filename in filenames:
     
     data_row = [filename]
     for transformed_table in transformed_tables:
-        max_questions = len(transformed_table)
         scales = transformed_table['Scale'].tolist()
+        data_row.extend(scales)
         
-        # Fill in the scales, use np.nan for empty scales
-        for i in range(max_questions):
-            if i < len(scales):
-                data_row.append(scales[i])
-            else:
-                data_row.append(np.nan)
-                
+    # Capture all text in the document
+    full_text = "\n".join([p.text for p in document.paragraphs])
+    
+    # Capture the responses for questions 15, 16, and 17 based on the markers
+    response_15 = get_response_between_markers(full_text, "What was the most rewarding experience for you during the REU project?", "16. What was the most frustrating experience for you during the REU project?")
+    response_16 = get_response_between_markers(full_text, "What was the most frustrating experience for you during the REU project?", "17. Any additional comments and suggestions are welcome below:")
+    response_17 = get_response_between_markers(full_text, "Any additional comments and suggestions are welcome below:", "Thank you")
+    
+    # Append the responses for questions 15, 16, and 17 to data_row
+    data_row.extend([response_15, response_16, response_17])
+    
     temp_df = pd.DataFrame([data_row], columns=['Filename'] + [f'Scale_Q{i+1}' for i in range(len(data_row) - 1)])
     final_df = final_df.append(temp_df, ignore_index=True)
 
 # Save the final DataFrame to an Excel file
-final_df.to_excel("result.xlsx", index=False)
+final_df.to_excel("Reformatted_Scales_Multiple_Files.xlsx", index=False)
