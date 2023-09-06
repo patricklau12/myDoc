@@ -27,22 +27,22 @@ sudo apt­-get install openssh-server
 #### Generate keys and copy them to other machines'list of authorized_keys, for easier login
 
 ```ruby
-ssh-keygen -t dsa
+ssh-keygen -t rsa -f ~/.ssh/id_rsa
 ```
 #### Add the generated key to each of the other computers. In our case, the node02 machine
 ```ruby
-ssh-copy-id node02
+ssh-copy-id -i ~/.ssh/id_rsa.pub jetbot@node02
 ```
 ## Do the above step for each of the worker machines, and localhost
 #### This will setup openssh-server for you to securely communicate with the worker machines. ssh all machines once, so they get added to your list of known_hosts. This is a very simple but essential step failing which passwordless ssh will be a trouble
 
-#### Enable passwordless SSH
+<!-- #### Enable passwordless SSH
 ```ruby
 eval `ssh-agent`
 ```
 ```ruby
 ssh-add ~/.ssh/id_dsa
-```
+``` -->
 
 ## 3. Check the configuration
 #### Try ssh node2 from node01 (master node)
