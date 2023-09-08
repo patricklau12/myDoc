@@ -31,7 +31,7 @@ vim ~/.bashrc
 Add following lines in the .bashrc
 ```ruby
 export CUDADIR=/usr/local/cuda
-export OPENBLASDIR=/usr/
+export OPENBLASDIR=/lib/aarch64-linux-gnu/openblas-pthread
 export LD_LIBRARY_PATH=/usr/local/magma/lib
 ```
 Source the .bashrc
@@ -44,7 +44,10 @@ go into make.inc-examples and copy make.inc.openblas into the parent directory a
 ```ruby
 mv make.inc-examples/make.inc.openblas ./make.inc
 ```
-
+The Makefile_single file is here
+```ruby
+git clone https://github.com/patricklau12/myDoc.git
+```
 modify the make.inc to compile only for ampere architecture by modifying the GPU_TARGET variable on line 57 in make.inc to only be Ampere
 
 for single precision, replace the original makefile with Makefile_single file from this repository, then

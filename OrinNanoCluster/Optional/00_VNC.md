@@ -1,6 +1,11 @@
 # VNC Setup
 #### Remote control the nodes
 
+
+
+
+Ref: https://developer.nvidia.com/embedded/learn/tutorials/vnc-setup
+
 ## Setup VNC server on the Jetson developer kit
 
 ### 1. Setting
@@ -76,3 +81,6 @@ sudo reboot
 https://www.realvnc.com/en/connect/download/viewer/
 
 ### Remote the Jetson with their IP
+
+
+-End-
