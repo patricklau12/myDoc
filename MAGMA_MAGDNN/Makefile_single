@@ -476,6 +476,8 @@ filt := $(shell find $(libmagma_all) -name '*_dc_v1.cpp')
 libmagma_all := $(filter-out $(filt), $(libmagma_all))
 filt := $(shell find $(libmagma_all) -name '*_ds_v1.cpp')
 libmagma_all := $(filter-out $(filt), $(libmagma_all))
+libmagma_all += magmablas/dgemm.cu magmablas/dgemm_batched_core.cu magmablas/dgemm_vbatched_core.cu magmablas/dgemm_reduce.cu 
+libmagma_all += magmablas/dgemm_batched_smallsq.cu interface_cuda/blas_d_v2 interface_cuda/blas_d_v1
 
 filt := $(shell find $(testing_all) -name 'testing_z*.cpp')
 testing_all := $(filter-out $(filt), $(testing_all))
@@ -490,6 +492,7 @@ filt := $(shell find $(testing_all) -name '*_z.cpp')
 testing_all := $(filter-out $(filt), $(testing_all))
 filt := $(shell find $(testing_all) -name '*_d.cpp')
 testing_all := $(filter-out $(filt), $(testing_all))
+testing_all += testing/testing_dgemm.cpp
 
 list:
 	@echo $(libmagma_all)
